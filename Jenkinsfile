@@ -11,6 +11,7 @@ pipeline {
             steps {
                 git(
                     url: 'https://github.com/natlusbrr/task-tracker.git',
+                    credentialsId: 'github-https', 
                     branch: 'main'
                 )
             }
@@ -18,21 +19,21 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                echo "Building Docker image..."
+                echo "Building Docker image"
                 bat "docker build -t %IMAGE_NAME% ."
             }
         }
 
         stage('Run Unit Tests') {
             steps {
-                echo "Running unit tests..."
-                bat "python -m unittest test_app.py"
+                echo "Running unit tests"
+                bat "py -m unittest testApp.py"
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Deploying container..."
+                echo "Deploying container"
                 bat "docker stop %CONTAINER_NAME% || echo Not running"
                 bat "docker rm %CONTAINER_NAME% || echo Not found"
                 bat "docker run -d --name %CONTAINER_NAME% -p 5000:5000 %IMAGE_NAME%"
@@ -42,7 +43,7 @@ pipeline {
 
     post {
         always {
-            echo "Cleaning workspace..."
+            echo "Cleaning workspace"
             cleanWs()
         }
         failure {
