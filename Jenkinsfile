@@ -32,13 +32,15 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                echo "Deploying container"
-                bat "docker stop %CONTAINER_NAME% || echo Not running"
-                bat "docker rm %CONTAINER_NAME% || echo Not found"
-                bat "docker run -d --name %CONTAINER_NAME% -p 5000:5000 %IMAGE_NAME%"
-            }
-        }
+        steps {
+        echo "Deploying container"
+        bat '''
+        docker stop task-tracker-container || echo Not running
+        docker rm task-tracker-container || echo Not found
+        docker run -d --name task-tracker-container -p 5000:5000 task-tracker
+        '''
+    }
+}
     }
 
     post {
