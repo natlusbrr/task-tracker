@@ -27,7 +27,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 echo "Running unit tests"
-                bat "py -m unittest testApp.py"
+                bat '"C:\Users\ImExp\AppData\Local\Programs\Python\Python310\python.exe" -m unittest testApp.py'
             }
         }
 
