@@ -20,21 +20,6 @@ class TaskTrackerTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-        #purpose test fails
-
-    def test_wrong_status_code(self):
-        response = self.client.post('/tasks', json={'title': 'this should fail'})
-        self.assertEqual(response.status_code, 200)  # Should be 201
-
-    def test_missing_title(self):
-        response = self.client.post('/tasks', json={})  # No 'title'
-        self.assertEqual(response.status_code, 400)
-
-    def test_delete_nonexistent_task(self):
-        response = self.client.delete('/tasks/999')  # ID doesn't exist
-        self.assertEqual(response.status_code, 404)
-
-
 
 if __name__ == '__main__':
     unittest.main()
