@@ -12,7 +12,8 @@ def add_task():
     data = request.get_json()
     task = {
         'id': len(tasks) + 1,
-        'title': data['title']
+        'title': data['title'],
+        'completed': False  # new field added
     }
     tasks.append(task)
     return jsonify(task), 201
