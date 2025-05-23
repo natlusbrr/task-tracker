@@ -1,0 +1,24 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  IMAGE_NAME: task-tracker
+  CONTAINER_NAME: task-tracker-container
+
+build:
+  stage: build
+  script:
+    - docker build --platform=linux/amd64 -t $IMAGE_NAME .
+
+unit_tests:
+  stage: test
+  script:
+    - docker run --rm $IMAGE_NAME python -m unittest testApp.py
+
+deploy:
+  stage: deploy
+  script:
+    - docker stop $CONTAINER_NAME || echo Not running
+    - docker run -d --name $CONTAINER_NAME -p 5000:5000 $IMAGE_NAME
