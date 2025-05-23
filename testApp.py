@@ -19,6 +19,12 @@ class TaskTrackerTest(unittest.TestCase):
         response = self.client.delete('/tasks/1')
         self.assertEqual(response.status_code, 200)
 
+    def test_update_task(self):
+        self.client.post('/tasks', json={'title': 'Old Title'})
+        response = self.client.put('/tasks/1', json={'title': 'New Title'})
+        self.assertEqual(response.status_code, 200)
+
+
     #purpose test fails
 
     def test_wrong_status_code(self): 
