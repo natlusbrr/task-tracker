@@ -29,14 +29,14 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
                 echo "Building Docker image"
                 bat "docker build --platform=linux/amd64 -t task-tracker ."
             }
         }
 
-        stage('Run Unit Tests') {
+        stage('Tests') {
             steps {
                 echo "Running unit tests"
                 bat '"C:\\Users\\ImExp\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" -m unittest testApp.py'
