@@ -7,7 +7,7 @@ tasks = []
 def get_tasks():
     return jsonify(tasks), 200
 
-@app.route('/tasks ', methods=['POST'])
+@app.route('/tasks', methods=['POST'])
 def add_task():
     data = request.get_json()
     task = {
